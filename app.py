@@ -4,12 +4,10 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, TemplateSendMessage, flex_message
 from linebot.models import *
-from get_data import crawler
 
     
 app = Flask(__name__)
 
-cr = crawler()
 
 line_bot_api = LineBotApi('Jb3cS2e1C1ihbAM38Vv/CBl3fgPkIm22CesgJsrMjjrLXPKr102lOBVLXk7gSvOGT0nCcVRiIqVqdWt9kqwvg4ChHUliu23KzQNbH54dWW6XthIgNmQ16EIzXsbiTMSZSFzyqv4iv7EyP5TPVQTx4QdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('58acda0f2c42346d072457c2e8fd39f3')
@@ -36,10 +34,10 @@ def callback():
 def handle_message(event):
 	msg = event.message.text
 	msg = msg.encode('utf-8')
-	# if event.message.text == '文字':
-	# 	print('收到文字')
-	# 	line_bot_api.reply_message(event.reply_token, TextSendMessage(text = event.message.text))
-	
+	if event.message.text == '文字':
+		print('收到文字')
+		line_bot_api.reply_message(event.reply_token, TextSendMessage(text = event.message.text))
+'''
 	data = cr.get_data(event.message.text)
 	
 	if data == "not found":
@@ -78,6 +76,7 @@ def handle_postback(event):
 		actions=[URITemplateAction(label='立即詢料', uri=postback_data[1])]
 		))
 	line_bot_api.reply_message(event.reply_token, buttons_template)
+'''
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0',port=5000, debug=True)
