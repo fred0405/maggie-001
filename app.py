@@ -31,11 +31,12 @@ def callback():
 	return 'OK'
 
 @handler.add(MessageEvent, message = TextMessage)
-
 def handle_message(event):
 	msg = event.message.text
 	msg = msg.encode('utf-8')
-	line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "https://www.dropbox.com/home/bot?preview=_6914303.m4a"))
+	if event.message.text not in msg_type:
+		print('out of range')
+		line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "現在還沒支援那麼多！！！"))
 # 	if event.message.text == '文字':
 # 		print('收到文字')
 # 		line_bot_api.reply_message(event.reply_token, TextSendMessage(text = event.message.text))
