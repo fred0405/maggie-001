@@ -31,65 +31,55 @@ def callback():
 	return 'OK'
 
 @handler.add(MessageEvent, message = TextMessage)
+
 def handle_message(event):
 	msg = event.message.text
 	msg = msg.encode('utf-8')
-	if event.message.text == '文字':
-		print('收到文字')
-		line_bot_api.reply_message(event.reply_token, TextSendMessage(text = event.message.text))
-	message = AudioSendMessage(
-                    original_content_url = "https://www.dropbox.com/home/bot?preview=_6914303.m4a",
-                    duration=20000
-                )
-	line_bot_api.reply_message(event.reply_token,message)
-'''def handle_message(event):
-	msg = event.message.text
-	msg = msg.encode('utf-8')
-	line_bot_api.reply_message(event.reply_token, TextSendMessage(text = event.message.text))'''
-	'''if event.message.text == '文字':
-		print('收到文字')
-		line_bot_api.reply_message(event.reply_token, TextSendMessage(text = event.message.text))
-		'''
-'''
-	data = cr.get_data(event.message.text)
-	
-	if data == "not found":
-		result = "料號錯誤"
-		line_bot_api.reply_message(event.reply_token, TextSendMessage(text = result))
-
-	else:
+	line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "https://www.dropbox.com/home/bot?preview=_6914303.m4a"))
+# 	if event.message.text == '文字':
+# 		print('收到文字')
+# 		line_bot_api.reply_message(event.reply_token, TextSendMessage(text = event.message.text))
 		
-		column = list()
-		for item in data:
-			result = ""
-			for key in item:
-				if key != '下單網址' and key != '詳細頁面':
-					result = result + key + ' ' + item[key] + '\n'
-			column.append(CarouselColumn(text = result,
-				actions=[URITemplateAction(label='立即詢料', uri=item['下單網址']), 
-				PostbackTemplateAction(label='詳細資訊', data = item['詳細頁面'] + ' ' + item['下單網址'])]
-			))
-		Carousel_template = TemplateSendMessage(alt_text="Carousel template", template=CarouselTemplate(
-			columns=column))
-		# print(Carousel_template)
-		line_bot_api.reply_message(event.reply_token, Carousel_template)
 
-@handler.add(PostbackEvent)
-def handle_postback(event):
-	print(event.postback.data)
-	postback_data = event.postback.data.split(' ')
-	print("success")
-	data = cr.get_info(postback_data[0])
-	print(data)
-	result = ''
-	for key in data:
-		result += key + ' ' + data[key] + '\n'
-	result = result.strip()
-	buttons_template = TemplateSendMessage(alt_text="Buttons template", template=ButtonsTemplate(text=result,
-		actions=[URITemplateAction(label='立即詢料', uri=postback_data[1])]
-		))
-	line_bot_api.reply_message(event.reply_token, buttons_template)
-'''
+# 	data = cr.get_data(event.message.text)
+	
+# 	if data == "not found":
+# 		result = "料號錯誤"
+# 		line_bot_api.reply_message(event.reply_token, TextSendMessage(text = result))
+
+# 	else:
+		
+# 		column = list()
+# 		for item in data:
+# 			result = ""
+# 			for key in item:
+# 				if key != '下單網址' and key != '詳細頁面':
+# 					result = result + key + ' ' + item[key] + '\n'
+# 			column.append(CarouselColumn(text = result,
+# 				actions=[URITemplateAction(label='立即詢料', uri=item['下單網址']), 
+# 				PostbackTemplateAction(label='詳細資訊', data = item['詳細頁面'] + ' ' + item['下單網址'])]
+# 			))
+# 		Carousel_template = TemplateSendMessage(alt_text="Carousel template", template=CarouselTemplate(
+# 			columns=column))
+# 		# print(Carousel_template)
+# 		line_bot_api.reply_message(event.reply_token, Carousel_template)
+
+# @handler.add(PostbackEvent)
+# def handle_postback(event):
+# 	print(event.postback.data)
+# 	postback_data = event.postback.data.split(' ')
+# 	print("success")
+# 	data = cr.get_info(postback_data[0])
+# 	print(data)
+# 	result = ''
+# 	for key in data:
+# 		result += key + ' ' + data[key] + '\n'
+# 	result = result.strip()
+# 	buttons_template = TemplateSendMessage(alt_text="Buttons template", template=ButtonsTemplate(text=result,
+# 		actions=[URITemplateAction(label='立即詢料', uri=postback_data[1])]
+# 		))
+# 	line_bot_api.reply_message(event.reply_token, buttons_template)
+
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0',port=5000, debug=True)
