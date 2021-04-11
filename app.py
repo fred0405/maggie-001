@@ -34,7 +34,18 @@ def callback():
 def handle_message(event):
 	msg = event.message.text
 	msg = msg.encode('utf-8')
-	line_bot_api.reply_message(event.reply_token, TextSendMessage(text = event.message.text))
+	if event.message.text == '文字':
+		print('收到文字')
+		line_bot_api.reply_message(event.reply_token, TextSendMessage(text = event.message.text))
+	message = AudioSendMessage(
+                    original_content_url = "https://www.dropbox.com/home/bot?preview=_6914303.m4a",
+                    duration=20000
+                )
+	line_bot_api.reply_message(event.reply_token,message)
+'''def handle_message(event):
+	msg = event.message.text
+	msg = msg.encode('utf-8')
+	line_bot_api.reply_message(event.reply_token, TextSendMessage(text = event.message.text))'''
 	'''if event.message.text == '文字':
 		print('收到文字')
 		line_bot_api.reply_message(event.reply_token, TextSendMessage(text = event.message.text))
