@@ -12,6 +12,9 @@ app = Flask(__name__)
 line_bot_api = LineBotApi('Jb3cS2e1C1ihbAM38Vv/CBl3fgPkIm22CesgJsrMjjrLXPKr102lOBVLXk7gSvOGT0nCcVRiIqVqdWt9kqwvg4ChHUliu23KzQNbH54dWW6XthIgNmQ16EIzXsbiTMSZSFzyqv4iv7EyP5TPVQTx4QdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('58acda0f2c42346d072457c2e8fd39f3')
 
+msg_type = ["早安", "午安", "晚安", "唸書", "吃飯", "睡不著"]
+msg_data = {"早安":[], "午安":[], "晚安":[], "唸書":[], "吃飯":[], "睡不著":[]}
+
 @app.route('/', methods = ['GET'])
 def hello():
 	return "Hello World!"
